@@ -367,6 +367,15 @@ form {
   font-size: 0.8rem;
 }
 
+.page-btn {
+  background-color: #0b6e5c;
+  border-radius: 0.25rem;
+  color: white;
+  box-shadow: 0 2px 10px 0 rgb(0, 0, 0, 0.15), 0 10px 20px 0 rgb(0, 0, 0, 0.05);
+  width: 1rem;
+  border: none;
+  cursor: pointer;
+}
 #page {
   padding: 0 0.25rem;
   border-radius: 0.25rem;

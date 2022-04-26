@@ -77,6 +77,15 @@ const getTransactions = () => {
   calculateFinance(response);
 };
 
+const getSelectionTransactions = () => {
+  const getSelection = new XMLHttpRequest();
+  getSelection.open("GET", "http://localhost:9000/find", false);
+  getSelection.setRequestHeader("Content-Type", "application/json");
+  getSelection.send();
+  const getTransactionsRes = JSON.parse(getSelection.response);
+  console.log(getTransactionsRes);
+};
+
 const calculateFinance = (response) => {
   let revenue = 0;
   let purchase = 0;
@@ -172,6 +181,8 @@ submitTransactionBtn.addEventListener("click", () => {
   setTransaction();
   getTransactions();
 });
+
+page1.addEventListener("click", getSelectionTransactions);
 
 hbMenu.addEventListener("click", () => {
   console.log("Menu Open");

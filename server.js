@@ -39,6 +39,14 @@ app.post("/bills", async (req, res) => {
   }
 });
 
+app.get("/find", async (req, res) => {
+  try {
+    console.log("het werkt in de server");
+    const findSelection = await Transaction.find();
+    res.send(findSelection);
+  } catch (error) {}
+});
+
 app.get("/findtransactions", async (req, res) => {
   try {
     console.log(req.query);
