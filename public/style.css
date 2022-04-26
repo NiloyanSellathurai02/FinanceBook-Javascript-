@@ -227,6 +227,7 @@ input[type="checkbox"]:checked ~ span:nth-of-type(3) {
   border-radius: 0.25rem;
   box-shadow: 0 2px 10px 0 rgb(0, 0, 0, 0.15), 0 10px 20px 0 rgb(0, 0, 0, 0.05);
   padding: 0.5rem 1rem;
+  box-shadow: 0 2px 10px 0 rgb(0, 0, 0, 0.25), 0 10px 20px 0 rgb(0, 0, 0, 0.15);
 }
 
 .add-transaction:hover {
@@ -234,7 +235,7 @@ input[type="checkbox"]:checked ~ span:nth-of-type(3) {
 }
 
 .add-trans-modal {
-  background-color: rgba(0, 0, 0, 0.606);
+  background-color: rgba(0, 0, 0, 0.74);
   height: 100%;
   width: 100%;
   position: fixed;
@@ -245,6 +246,9 @@ input[type="checkbox"]:checked ~ span:nth-of-type(3) {
 
 .add-trans-visible {
   visibility: visible;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .add-trans-hidden {
@@ -252,70 +256,76 @@ input[type="checkbox"]:checked ~ span:nth-of-type(3) {
 }
 
 .add-trans-container {
-  margin: 3rem;
-  height: 32rem;
-  width: 50rem;
+  height: 15rem;
+  width: 45rem;
   background-color: #ffffff;
-  padding: 2rem;
-  border: 5px solid #0b6e5c;
+  border: 1px solid #0b6e5c;
+  box-shadow: 0 2px 10px 0 rgb(0, 0, 0, 0.25), 0 10px 20px 0 rgb(0, 0, 0, 0.15);
+  border-radius: 0.25rem;
+  padding: 0.8rem;
 }
 .close-btn {
-  height: 4rem;
+  height: 2rem;
   cursor: pointer;
   float: right;
 }
 
 .add-trans-form-heading {
-  font-size: 3rem;
+  font-size: 1rem;
   text-align: center;
 }
-
+form {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
 .add-trans-inputfield {
   height: 100%;
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
   align-content: center;
-  padding: 3rem;
+  padding: 1.5rem;
 }
 .inputfield-trans {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
-  margin-right: 1rem;
+  margin-right: 0.8rem;
 }
 
 .inputfield-trans label {
-  font-size: 1.2rem;
-  text-transform: uppercase;
-  margin-right: 2rem;
-  font-weight: bold;
+  font-size: 0.8rem;
+  margin-right: 1rem;
 }
 
 .inputfield-trans input {
   padding: 0.4rem;
-  width: 15rem;
-  border: 3px solid rgb(0, 0, 0);
-  border-radius: 0.9rem;
-  margin-bottom: 0.5rem;
+  width: 10rem;
+  border: 1px solid rgb(0, 0, 0);
+  box-shadow: 0 2px 10px 0 rgb(0, 0, 0, 0.25), 0 10px 20px 0 rgb(0, 0, 0, 0.15);
+  border-radius: 0.25rem;
+  margin-bottom: 0.3rem;
 }
 
 .inputfield-trans select {
   padding: 0.4rem;
-  width: 15rem;
-  border: 3px solid black;
-  border-radius: 0.9rem;
-  margin-bottom: 0.5rem;
+  width: 10rem;
+  border: 1px solid black;
+  box-shadow: 0 2px 10px 0 rgb(0, 0, 0, 0.25), 0 10px 20px 0 rgb(0, 0, 0, 0.15);
+  border-radius: 0.25rem;
+  margin-bottom: 0.3rem;
 }
 
 .add-trans-sumbit {
   margin-top: 2rem;
   padding: 0.3rem 1.8rem;
   background-color: #0b6e5c;
+  box-shadow: 0 2px 10px 0 rgb(0, 0, 0, 0.25), 0 10px 20px 0 rgb(0, 0, 0, 0.15);
   border: none;
-  border-radius: 1rem;
+  border-radius: 0.25rem;
   color: white;
   text-transform: uppercase;
-  font-size: 1.2rem;
+  font-size: 0.8rem;
   cursor: pointer;
 }
 
