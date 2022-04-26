@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+      integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;900&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="container--main">
+      <header>
+        <div class="header--container">
+          <div class="header--hb-menu">
+            <i class="fa-solid fa-bars" id="menu"></i>
+          </div>
+          <div class="header--logo">
+            <img src="/images/logo.png" alt="logo" class="logo" />
+          </div>
+          <div class="header--login-placeholder">
+            <div class="login-pp">
+              <img src="/images/NS-pf.jpg" alt="profielfoto" class="user-pp" />
+            </div>
+            <div class="login--pp-display-name">
+              <div id="login--pp-firstname">
+                <h2 id="header-display-username">Niloyan</h2>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="" id="modal--menu">
+          <div class="sidebar" id="hb-menu-open">
+            <div class="menu" id="sidebar-menulist">
+              <a href="#">Dashboard</a>
+              <a href="#">Projecten</a>
+              <a href="#">Klanten</a>
+              <a href="#">Facturen</a>
+              <a href="#">Website Beheer</a>
+              <a href="#">Webmail</a>
+            </div>
+          </div>
+        </div>
+      </header>
+    </div>
+    <div class="add-trans-modal" id="add-trans">
+      <div class="add-trans-container">
+        <img
+          src="/images/close.png"
+          alt="close-trans-modal"
+          class="close-btn"
+          id="close-trans-modal-btn"
+        />
+        <div class="add-trans-form">
+          <h1 class="add-trans-form-heading">Add Transaction</h1>
+          <div class="add-trans-inputfield">
+            <form action="#">
+              <div class="inputfield-trans">
+                <label for="transaction-date"> Date</label>
+                <input type="date" id="date" name="date" required />
+              </div>
+
+              <!----------------------------------------------->
+              <div class="inputfield-trans">
+                <label for="transaction-description">Description</label>
+                <input
+                  type="text"
+                  id="cpName"
+                  name="lname"
+                  placeholder="Company Name"
+                  required
+                />
+              </div>
+
+              <!----------------------------------------------->
+              <div class="inputfield-trans">
+                <label for="transaction-number">Transaction number</label>
+                <input
+                  type="text"
+                  id="trans-numb"
+                  name="lname"
+                  placeholder="Transaction Number"
+                  required
+                />
+              </div>
+
+              <!----------------------------------------------->
+              <div class="inputfield-trans">
+                <label for="transaction-amount"> Amount</label>
+                <input
+                  type="text"
+                  id="amount"
+                  name="lname"
+                  placeholder="Transaction Amount with €"
+                  required
+                />
+              </div>
+              <!----------------------------------------------->
+              <div class="inputfield-trans">
+                <label for="transaction-type" id="trans-type"> Type</label>
+                <select name="transaction-type" id="transaction-type">
+                  <option value="Income" id="income">Income</option>
+                  <option value="Purchase" id="purchase">Purchase</option>
+                </select>
+              </div>
+              <div class="submit-trans">
+                <button type="button" class="add-trans-sumbit" id="submit-btn">
+                  Submit
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <main>
+      <section>
+        <div class="section-container">
+          <div class="info--np">
+            <div class="heading-info">
+              <h1 class="heading-primary">Revenue</h1>
+              <h2 id="revenue">€ 0,00</h2>
+            </div>
+          </div>
+          <div class="info--np">
+            <div class="heading-info">
+              <h1 class="heading-primary">Purchase</h1>
+              <h2 id="purchaseCalc">€ 0,00</h2>
+            </div>
+          </div>
+          <div class="info--np">
+            <div class="heading-info">
+              <h1 class="heading-primary">Profit/Loss</h1>
+              <h2 class="profitLos" id="profitLoss">€ 0,00</h2>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="transactions">
+        <div class="filterTrans">
+          <div class="filterTrans-container">
+            <form id="filter" action="#">
+              <div class="filterTrans-1">
+                <div class="filterTrans-search">
+                  <input
+                    id="filterSearch"
+                    name="q"
+                    type="text"
+                    placeholder="Search.."
+                  />
+                </div>
+              </div>
+
+              <div class="filterTrans-1">
+                <button id="filter-Transaction">
+                  <i class="fa-solid fa-magnifying-glass"></i> Search Now
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+        <div class="filter-details">
+          <h6 class="transactions-heading">Transactions</h6>
+          <div class="add-transaction" id="add-transaction">
+            <h3 class="add-heading">
+              <i class="fa-solid fa-circle-plus"></i> Add Transaction
+            </h3>
+          </div>
+        </div>
+        <div class="transactions--container">
+          <div class="transactions--overview">
+            <div class="overview-1 transaction-date">Date</div>
+            <div class="overview-1 transaction-description">Description</div>
+            <div class="overview-1 transaction-number">Transaction Number</div>
+            <div class="overview-1 transaction-type">Type</div>
+            <div class="overview-1 transaction-amount">Amount</div>
+            <div id="insertDate"></div>
+            <div id="description"></div>
+            <div id="transaction-number"></div>
+            <div id="type"></div>
+            <div id="amountTrans"></div>
+          </div>
+          <div class="transactions--footer">
+            <div class="paginations">
+              <button id="page-1">1</button>
+              <button id="page-2">2</button>
+              <button id="page-3">3</button>
+              <button id="page-4">4</button>
+              <button id="page-5">5</button>
+              <button id="page-6">6</button>
+              <button id="page-7">7</button>
+              <button id="page-8">8</button>
+            </div>
+            <div class="filterTrans-select">
+              <label for="limit">Limit</label>
+              <select name="limit" id="page">
+                <option value="10">10</option>
+                <option value="20">20</option>
+                <option value="50">50</option>
+                <option value="100">100</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+    <script src="/app.js"></script>
+  </body>
+</html>
