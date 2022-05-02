@@ -41,8 +41,17 @@ app.post("/bills", async (req, res) => {
 
 app.get("/find", async (req, res) => {
   try {
-    const findSelection = await Transaction.find();
+    const findSelection = await Transaction.find().limit(10);
     res.send(findSelection);
+  } catch (error) {
+    res.status(400).send(error.message);
+  }
+});
+
+app.get("/find2", async (req, res) => {
+  try {
+    const findSelection1 = await Transaction.find().skip(10).limit(10);
+    res.send(findSelection1);
   } catch (error) {
     res.status(400).send(error.message);
   }
@@ -52,7 +61,7 @@ app.get("/findtransactions", async (req, res) => {
   try {
     console.log(req.query);
 
-    const { q, limit } = req.query;
+    const { q, limit, page } = req.query;
 
     let limitFilter = 0;
     if (limit) limitFilter = Number(limit);
@@ -60,13 +69,17 @@ app.get("/findtransactions", async (req, res) => {
     let findQuery = {};
     if (q) findQuery["$text"] = { $search: q };
 
+    let skipFilter = 0;
+    if (page) skipFilter = (Number(page) - 1) * limitFilter;
+
     // mongodb: query $text >>> index maken op velden waarvan je tekst wil matchen.
 
-    const findAllTransactions = await Transaction.find(findQuery).limit(
-      limitFilter
-    );
+    const count = await Transaction.countDocuments();
+    const transactions = await Transaction.find(findQuery)
+      .skip(skipFilter)
+      .limit(limitFilter);
 
-    res.send(findAllTransactions);
+    res.send({ transactions, count });
   } catch (error) {
     res.status(400).send(error.message);
   }

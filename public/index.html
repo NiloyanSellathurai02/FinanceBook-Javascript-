@@ -194,23 +194,14 @@
             <div id="amountTrans"></div>
           </div>
           <div class="transactions--footer">
-            <div class="paginations">
-              <button class="page-btn" id="page-1">1</button>
-              <button class="page-btn" id="page-2">2</button>
-              <button class="page-btn" id="page-3">3</button>
-              <button class="page-btn" id="page-4">4</button>
-              <button class="page-btn" id="page-5">5</button>
-              <button class="page-btn" id="page-6">6</button>
-              <button class="page-btn" id="page-7">7</button>
-              <button class="page-btn" id="page-8">8</button>
-            </div>
+            <div class="paginations" id="pagination"></div>
             <div class="filterTrans-select">
               <label for="limit">Limit</label>
-              <select name="limit" id="page">
-                <option value="10">10</option>
-                <option value="20">20</option>
-                <option value="50">50</option>
-                <option value="100">100</option>
+              <select name="limit" id="page" onchange="setLimit(this.value)">
+                <option value="10" id="limit-10">10</option>
+                <option value="20" id="limit-20">20</option>
+                <option value="50" id="limit-50">50</option>
+                <option value="100" id="limit-100">100</option>
               </select>
             </div>
           </div>

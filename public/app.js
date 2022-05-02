@@ -34,15 +34,14 @@ let purchaseCalculation = document.getElementById("purchaseCalc");
 let profitLoss = document.getElementById("profitLoss");
 const profitLosStyle = document.querySelector(".profitLos");
 
-/////////////////////////////////////////////////////////////////////////
-const page1 = document.getElementById("page-1");
-const page2 = document.getElementById("page-2");
-const page3 = document.getElementById("page-3");
-const page4 = document.getElementById("page-4");
-const page5 = document.getElementById("page-5");
-const page6 = document.getElementById("page-6");
-const page7 = document.getElementById("page-7");
-const page8 = document.getElementById("page-8");
+// SET LIMIT SELECT BASED ON SEARCH QUERY VALUE
+const params = new URLSearchParams(window.location.search);
+params.forEach((value, key) => {
+  if (key === "limit") {
+    (document.getElementById(`limit-${value}`) || {}).selected = "selected";
+  }
+});
+
 /////////////////////////////////////////////////////////////////////////
 //Deze functie haalt de bestaande transacties op hem weer te geven
 const getTransactions = () => {
@@ -60,7 +59,7 @@ const getTransactions = () => {
   let insertTransactionNum = "";
   let insertTransactionType = "";
   let insertTransactionAmount = "";
-  response.forEach((trans) => {
+  response.transactions.forEach((trans) => {
     insertTransactions += `<div class="transaction-data-js js-transaction-date">${trans.date} </div>`;
     insertName += `<div class="transaction-data-js js-transaction-description"> ${trans.description}</div>`;
     insertTransactionNum += `<div class="transaction-data-js js-transaction-number">${trans.transaction_number}</div>`;
@@ -74,24 +73,34 @@ const getTransactions = () => {
   typeTrans.innerHTML = insertTransactionType;
   transactionAmount.innerHTML = insertTransactionAmount;
 
-  calculateFinance(response);
+  calculateFinance(response.transactions);
+  renderPaginationButtons(response.count);
 };
 
-const getSelectionTransactions = () => {
-  const getSelection = new XMLHttpRequest();
-  getSelection.open("GET", "http://localhost:9000/find", false);
-  getSelection.setRequestHeader("Content-Type", "application/json");
-  getSelection.send();
-  const getTransactionsRes = JSON.parse(getSelection.response);
-  console.log(getTransactionsRes);
-};
+// const getSelectionTransactions = () => {
+//   const getSelection = new XMLHttpRequest();
+//   getSelection.open("GET", "http://localhost:9000/find", false);
+//   getSelection.setRequestHeader("Content-Type", "application/json");
+//   getSelection.send();
+//   const getTransactionsRes = JSON.parse(getSelection.response);
+//   console.log(getTransactionsRes);
+// };
 
-const calculateFinance = (response) => {
+// const getSecondPage = () => {
+//   const getSelection2 = new XMLHttpRequest();
+//   getSelection2.open("GET", "http://localhost:9000/find2", false);
+//   getSelection2.setRequestHeader("Content-Type", "application/json");
+//   getSelection2.send();
+//   const getTransactionsPage2 = JSON.parse(getSelection2.response);
+//   console.log(getTransactionsPage2);
+// };
+
+const calculateFinance = (transactions) => {
   let revenue = 0;
   let purchase = 0;
   let profitloss = 0;
 
-  response.forEach((calc) => {
+  transactions.forEach((calc) => {
     if (calc.type === "Income") {
       revenue += calc.amount;
     } else if (calc.type === "Purchase") {
@@ -113,6 +122,41 @@ const calculateFinance = (response) => {
   } else if (profitloss < 0) {
     profitLosStyle.style.color = "red";
   }
+};
+
+const renderPaginationButtons = (count) => {
+  const limit = Number(document.getElementById("page").value);
+  const numButtons = Math.ceil(count / limit);
+
+  let buttonHTML = "";
+  for (let i = 0; i < numButtons; i++) {
+    buttonHTML += `<button class="page-btn" onclick="setPage(${
+      i + 1
+    })" value="${i}">${i + 1}</button>`;
+  }
+
+  document.getElementById("pagination").innerHTML = buttonHTML;
+};
+
+const setPage = (pageNumber) => {
+  const params = new URLSearchParams(window.location.search);
+  const search = [];
+  params.forEach((value, key) => {
+    if (key === "page") return search.push(`page=${pageNumber}`);
+    return search.push(`${key}=${value}`);
+  });
+  document.location.search = search.join("&");
+};
+
+const setLimit = (limit) => {
+  const params = new URLSearchParams(window.location.search);
+  const search = [];
+  params.forEach((value, key) => {
+    if (key === "limit") return search.push(`limit=${limit}`);
+    if (key === "page") return search.push(`page=1`);
+    return search.push(`${key}=${value}`);
+  });
+  document.location.search = search.join("&");
 };
 
 const toggleMenuList = () => {
@@ -181,8 +225,6 @@ submitTransactionBtn.addEventListener("click", () => {
   setTransaction();
   getTransactions();
 });
-
-page1.addEventListener("click", getSelectionTransactions);
 
 hbMenu.addEventListener("click", () => {
   console.log("Menu Open");
