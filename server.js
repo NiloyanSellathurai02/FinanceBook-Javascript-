@@ -15,6 +15,14 @@ app.use(express.static("public"));
 app.listen(port, () => {
   console.log(`Admin Panel working on....... port ${port}`);
 });
+app.get("/say", async (req, res) => {
+  try {
+    const sayHello = await "Hello";
+    res.send(sayHello);
+  } catch (error) {
+    res.status(400).send(error.message);
+  }
+});
 
 app.post("/bills", async (req, res) => {
   try {
@@ -34,24 +42,6 @@ app.post("/bills", async (req, res) => {
       type: transcationType,
     });
     res.send(newTransaction);
-  } catch (error) {
-    res.status(400).send(error.message);
-  }
-});
-
-app.get("/find", async (req, res) => {
-  try {
-    const findSelection = await Transaction.find().limit(10);
-    res.send(findSelection);
-  } catch (error) {
-    res.status(400).send(error.message);
-  }
-});
-
-app.get("/find2", async (req, res) => {
-  try {
-    const findSelection1 = await Transaction.find().skip(10).limit(10);
-    res.send(findSelection1);
   } catch (error) {
     res.status(400).send(error.message);
   }

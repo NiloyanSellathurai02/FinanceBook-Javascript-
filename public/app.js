@@ -77,24 +77,6 @@ const getTransactions = () => {
   renderPaginationButtons(response.count);
 };
 
-// const getSelectionTransactions = () => {
-//   const getSelection = new XMLHttpRequest();
-//   getSelection.open("GET", "http://localhost:9000/find", false);
-//   getSelection.setRequestHeader("Content-Type", "application/json");
-//   getSelection.send();
-//   const getTransactionsRes = JSON.parse(getSelection.response);
-//   console.log(getTransactionsRes);
-// };
-
-// const getSecondPage = () => {
-//   const getSelection2 = new XMLHttpRequest();
-//   getSelection2.open("GET", "http://localhost:9000/find2", false);
-//   getSelection2.setRequestHeader("Content-Type", "application/json");
-//   getSelection2.send();
-//   const getTransactionsPage2 = JSON.parse(getSelection2.response);
-//   console.log(getTransactionsPage2);
-// };
-
 const calculateFinance = (transactions) => {
   let revenue = 0;
   let purchase = 0;
