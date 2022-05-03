@@ -74,6 +74,7 @@ const getTransactions = () => {
   transactionAmount.innerHTML = insertTransactionAmount;
 
   renderPaginationButtons(response.count);
+  countMoney();
 };
 const countMoney = () => {
   const getMoney = new XMLHttpRequest();
@@ -95,7 +96,7 @@ const countMoney = () => {
   });
 
   profitloss = revenue - purchase;
-  let res = Math.round(profitloss * 100) / 100;
+  let res = Math.round(profitloss * 1000) / 1000;
 
   console.log(revenue);
   console.log(purchase);
@@ -126,6 +127,7 @@ const renderPaginationButtons = (count) => {
 
 const setPage = (pageNumber) => {
   const params = new URLSearchParams(window.location.search);
+  console.log(params);
   const search = [];
   params.forEach((value, key) => {
     if (key === "page") return search.push(`page=${pageNumber}`);
@@ -143,6 +145,8 @@ const setLimit = (limit) => {
     return search.push(`${key}=${value}`);
   });
   document.location.search = search.join("&");
+
+  console.log(search);
 };
 
 const toggleMenuList = () => {
