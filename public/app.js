@@ -73,16 +73,20 @@ const getTransactions = () => {
   typeTrans.innerHTML = insertTransactionType;
   transactionAmount.innerHTML = insertTransactionAmount;
 
-  calculateFinance(response.transactions);
   renderPaginationButtons(response.count);
 };
+const countMoney = () => {
+  const getMoney = new XMLHttpRequest();
+  getMoney.open("GET", "http://localhost:9000/getmoney", false);
+  getMoney.send();
+  const getMoneyRes = JSON.parse(getMoney.response);
+  console.log(getMoneyRes);
 
-const calculateFinance = (transactions) => {
   let revenue = 0;
   let purchase = 0;
   let profitloss = 0;
 
-  transactions.forEach((calc) => {
+  getMoneyRes.forEach((calc) => {
     if (calc.type === "Income") {
       revenue += calc.amount;
     } else if (calc.type === "Purchase") {
@@ -202,6 +206,7 @@ const setTransaction = () => {
   );
 };
 
+countMoney();
 submitTransactionBtn.addEventListener("click", () => {
   addTransactionModal.classList.toggle("add-trans-visible");
   setTransaction();

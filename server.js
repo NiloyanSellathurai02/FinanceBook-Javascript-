@@ -15,14 +15,6 @@ app.use(express.static("public"));
 app.listen(port, () => {
   console.log(`Admin Panel working on....... port ${port}`);
 });
-app.get("/say", async (req, res) => {
-  try {
-    const sayHello = await "Hello";
-    res.send(sayHello);
-  } catch (error) {
-    res.status(400).send(error.message);
-  }
-});
 
 app.post("/bills", async (req, res) => {
   try {
@@ -73,4 +65,10 @@ app.get("/findtransactions", async (req, res) => {
   } catch (error) {
     res.status(400).send(error.message);
   }
+});
+
+app.get("/getmoney", async (req, res) => {
+  const findAllMoney = await Transaction.find();
+  console.log(findAllMoney);
+  res.send(findAllMoney);
 });
