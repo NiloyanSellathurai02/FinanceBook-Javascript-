@@ -18,17 +18,12 @@ const addTransactionModalClose = document.getElementById(
 );
 //Hiermee stuur je alle invulvelden met een waarde naar de server.
 const submitTransactionBtn = document.getElementById("submit-btn");
-/////////////////////////////////////////////////////////////////////
-
 ///Input values overview//////////////////////////////////////
 let insertDate = document.getElementById("insertDate");
 let insertDescription = document.getElementById("description");
 let transactionNum = document.getElementById("transaction-number");
 let typeTrans = document.getElementById("type");
 let transactionAmount = document.getElementById("amountTrans");
-//////////////////////////////////////////////////////////////
-
-/////////////////////////////////////////////////////////////////
 let revenueCalculation = document.getElementById("revenue");
 let purchaseCalculation = document.getElementById("purchaseCalc");
 let profitLoss = document.getElementById("profitLoss");
@@ -42,7 +37,6 @@ params.forEach((value, key) => {
   }
 });
 
-/////////////////////////////////////////////////////////////////////////
 //Deze functie haalt de bestaande transacties op hem weer te geven
 const getTransactions = () => {
   const query = location.search;
