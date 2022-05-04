@@ -4,6 +4,7 @@ const res = require("express/lib/response");
 const app = express();
 const port = 9000;
 require("dotenv").config();
+const slugify = require("slugify");
 const connectDB = require("./config/mongodb");
 const Transaction = require("./models/Transaction");
 
