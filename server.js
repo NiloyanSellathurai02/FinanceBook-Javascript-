@@ -1,6 +1,4 @@
 const express = require("express");
-const req = require("express/lib/request");
-const res = require("express/lib/response");
 const app = express();
 const port = 8000;
 require("dotenv").config();
@@ -17,34 +15,9 @@ app.listen(port, () => {
   console.log(`Admin Panel working on....... port ${port}`);
 });
 
-app.post("/bills", async (req, res) => {
-  try {
-    const date = req.body.date;
-    const name = req.body.name;
-    const transaction_num = req.body.transaction_num;
-    const amount = req.body.amount;
-    const transcationType = req.body.transcationType;
-    const image1 = req.body.image;
-    const deleteImage = req.body.deleteImage;
+// Transaction routes
 
-    console.log(amount);
-
-    const newTransaction = await Transaction.create({
-      date: date,
-      description: name,
-      transaction_number: transaction_num,
-      amount: amount,
-      type: transcationType,
-      image: image1,
-      delete: deleteImage,
-    });
-    res.send(newTransaction);
-  } catch (error) {
-    res.status(400).send(error.message);
-  }
-});
-
-app.get("/findtransactions", async (req, res) => {
+app.get("/transactions", async (req, res) => {
   try {
     console.log(req.query);
 
@@ -59,8 +32,6 @@ app.get("/findtransactions", async (req, res) => {
     let skipFilter = 0;
     if (page) skipFilter = (Number(page) - 1) * limitFilter;
 
-    // mongodb: query $text >>> index maken op velden waarvan je tekst wil matchen.
-
     const count = await Transaction.countDocuments();
     const transactions = await Transaction.find(findQuery)
       .skip(skipFilter)
@@ -72,7 +43,52 @@ app.get("/findtransactions", async (req, res) => {
   }
 });
 
-app.get("/getmoney", async (req, res) => {
+app.get("/transactions/:transactionId", async (req, res) => {
+  try {
+    const transaction = await Transaction.findById(req.params.transactionId);
+    res.send(transaction);
+  } catch (error) {
+    res.status(400).send(error.message);
+  }
+});
+
+app.post("/transactions", async (req, res) => {
+  try {
+    const {
+      date,
+      name: description,
+      transaction_num: transaction_number,
+      amount,
+      transcationType: type,
+    } = req.body;
+
+    const newTransaction = await Transaction.create({
+      date,
+      description,
+      transaction_number,
+      amount,
+      type,
+    });
+
+    res.send(newTransaction);
+  } catch (error) {
+    res.status(400).send(error.message);
+  }
+});
+
+app.delete("/transactions/:transactionId", async (req, res) => {
+  try {
+    const transactiondId = req.params.transactionId;
+    await Transaction.findByIdAndDelete(transactiondId);
+    res.sendStatus(200);
+  } catch (error) {
+    res.status(400).send(error.message);
+  }
+});
+
+// money
+
+app.get("/money", async (req, res) => {
   const findAllMoney = await Transaction.find();
   console.log(findAllMoney);
   res.send(findAllMoney);

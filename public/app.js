@@ -45,7 +45,7 @@ const getTransactions = () => {
   const query = location.search;
   console.log(query);
   const getReq = new XMLHttpRequest();
-  getReq.open("GET", `http://localhost:8000/findtransactions${query}`, false);
+  getReq.open("GET", `http://localhost:8000/transactions${query}`, false);
   getReq.setRequestHeader("Content-Type", "application/json");
   getReq.send();
   const response = JSON.parse(getReq.response);
@@ -66,8 +66,8 @@ const getTransactions = () => {
     insertTransactionAmount += `<div class="transaction-data-js js-transaction-amount"> € ${trans.amount},-</div>`;
     insertEditTrans += `<div class="transaction-data-js js-transaction-edit">
     <img src=${images[0]} alt="edit-trans" class="edit-trans" /></div>`;
-    deleteTransaction += `<div class="transaction-data-js js-transaction-delete">
-    <img src=${images[1]} alt="edit-trans" class="edit-trans" /></div>`;
+    deleteTransaction += `<div class="transaction-data-js js-transaction-delete"  id="${trans._id}">
+    <img src=${images[1]} alt="edit-trans" class="edit-trans" style="pointer-events:none"  /></div>`;
   });
 
   insertDate.innerHTML = insertTransactions;
@@ -83,7 +83,7 @@ const getTransactions = () => {
 };
 const countMoney = () => {
   const getMoney = new XMLHttpRequest();
-  getMoney.open("GET", "http://localhost:8000/getmoney", false);
+  getMoney.open("GET", "http://localhost:8000/money", false);
   getMoney.send();
   const getMoneyRes = JSON.parse(getMoney.response);
   console.log(getMoneyRes);
@@ -187,7 +187,7 @@ const getInputValues = () => {
 //Deze Functie neemt alle waardes en stuurt deze naar de server
 const setTransaction = () => {
   const xmhttpReq = new XMLHttpRequest();
-  xmhttpReq.open("POST", "http://localhost:8000/bills", false);
+  xmhttpReq.open("POST", "http://localhost:8000/transactions", false);
   xmhttpReq.setRequestHeader("Content-Type", "application/json");
 
   const values = getInputValues();
@@ -238,4 +238,16 @@ addTransactionBtn.addEventListener("click", () => {
 
 addTransactionModalClose.addEventListener("click", () => {
   addTransactionModal.classList.toggle("add-trans-visible");
+});
+
+deleteTrans.addEventListener("click", (e) => {
+  console.log(e.target.id);
+  const deleteTrans = new XMLHttpRequest();
+  deleteTrans.open(
+    "delete",
+    `http://localhost:8000/transactions/${e.target.id}`,
+    false
+  );
+  deleteTrans.send();
+  getTransactions();
 });
