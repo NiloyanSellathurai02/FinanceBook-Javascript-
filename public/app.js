@@ -42,7 +42,7 @@ const getTransactions = () => {
   const query = location.search;
   console.log(query);
   const getReq = new XMLHttpRequest();
-  getReq.open("GET", `http://localhost:9000/findtransactions${query}`, false);
+  getReq.open("GET", `http://localhost:8000/findtransactions${query}`, false);
   getReq.setRequestHeader("Content-Type", "application/json");
   getReq.send();
   const response = JSON.parse(getReq.response);
@@ -72,7 +72,7 @@ const getTransactions = () => {
 };
 const countMoney = () => {
   const getMoney = new XMLHttpRequest();
-  getMoney.open("GET", "http://localhost:9000/getmoney", false);
+  getMoney.open("GET", "http://localhost:8000/getmoney", false);
   getMoney.send();
   const getMoneyRes = JSON.parse(getMoney.response);
   console.log(getMoneyRes);
@@ -176,7 +176,7 @@ const getInputValues = () => {
 //Deze Functie neemt alle waardes en stuurt deze naar de server
 const setTransaction = () => {
   const xmhttpReq = new XMLHttpRequest();
-  xmhttpReq.open("POST", "http://localhost:9000/bills", false);
+  xmhttpReq.open("POST", "http://localhost:8000/bills", false);
   xmhttpReq.setRequestHeader("Content-Type", "application/json");
 
   const values = getInputValues();
