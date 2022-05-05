@@ -6,6 +6,8 @@ const schema = new mongoose.Schema({
   transaction_number: "string",
   amount: "number",
   type: "string",
+  image: "string",
+  deleteImage: "string",
 });
 
 schema.index({

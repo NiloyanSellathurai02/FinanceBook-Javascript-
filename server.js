@@ -24,6 +24,8 @@ app.post("/bills", async (req, res) => {
     const transaction_num = req.body.transaction_num;
     const amount = req.body.amount;
     const transcationType = req.body.transcationType;
+    const image1 = req.body.image;
+    const deleteImage = req.body.deleteImage;
 
     console.log(amount);
 
@@ -33,6 +35,8 @@ app.post("/bills", async (req, res) => {
       transaction_number: transaction_num,
       amount: amount,
       type: transcationType,
+      image: image1,
+      delete: deleteImage,
     });
     res.send(newTransaction);
   } catch (error) {

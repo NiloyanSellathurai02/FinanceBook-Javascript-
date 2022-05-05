@@ -1,5 +1,6 @@
 "use strict";
 
+let images = ["images/icons8-edit-48.png", "images/icons8-delete-24.png"];
 //Dit is de HamburgerMenu die je kan clicken
 const hbMenu = document.getElementById("menu");
 //Hier opent de Hamburger Menu met de Modal
@@ -23,6 +24,8 @@ let insertDate = document.getElementById("insertDate");
 let insertDescription = document.getElementById("description");
 let transactionNum = document.getElementById("transaction-number");
 let typeTrans = document.getElementById("type");
+let editTrans = document.getElementById("editTrans");
+let deleteTrans = document.getElementById("deleteTrans");
 let transactionAmount = document.getElementById("amountTrans");
 let revenueCalculation = document.getElementById("revenue");
 let purchaseCalculation = document.getElementById("purchaseCalc");
@@ -53,12 +56,18 @@ const getTransactions = () => {
   let insertTransactionNum = "";
   let insertTransactionType = "";
   let insertTransactionAmount = "";
+  let insertEditTrans = "";
+  let deleteTransaction = "";
   response.transactions.forEach((trans) => {
     insertTransactions += `<div class="transaction-data-js js-transaction-date">${trans.date} </div>`;
     insertName += `<div class="transaction-data-js js-transaction-description"> ${trans.description}</div>`;
     insertTransactionNum += `<div class="transaction-data-js js-transaction-number">${trans.transaction_number}</div>`;
     insertTransactionType += `<div class="transaction-data-js js-transaction-type">${trans.type}</div>`;
     insertTransactionAmount += `<div class="transaction-data-js js-transaction-amount"> € ${trans.amount},-</div>`;
+    insertEditTrans += `<div class="transaction-data-js js-transaction-edit">
+    <img src=${images[0]} alt="edit-trans" class="edit-trans" /></div>`;
+    deleteTransaction += `<div class="transaction-data-js js-transaction-delete">
+    <img src=${images[1]} alt="edit-trans" class="edit-trans" /></div>`;
   });
 
   insertDate.innerHTML = insertTransactions;
@@ -66,6 +75,8 @@ const getTransactions = () => {
   transactionNum.innerHTML = insertTransactionNum;
   typeTrans.innerHTML = insertTransactionType;
   transactionAmount.innerHTML = insertTransactionAmount;
+  editTrans.innerHTML = insertEditTrans;
+  deleteTrans.innerHTML = deleteTransaction;
 
   renderPaginationButtons(response.count);
   countMoney();
@@ -200,6 +211,8 @@ const setTransaction = () => {
       transaction_num: inputTransNumber,
       amount: Number(inputAmount),
       transcationType: inputTranscationType,
+      image: images[0],
+      deleteImage: images[1],
     })
   );
 };
