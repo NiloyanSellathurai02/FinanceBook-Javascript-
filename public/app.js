@@ -17,6 +17,10 @@ const addTransactionModal = document.getElementById("add-trans");
 const addTransactionModalClose = document.getElementById(
   "close-trans-modal-btn"
 );
+
+const headingTransModal = document.getElementById("heading-modal");
+
+const editTransactionBtn = document.getElementById("edit-btn");
 //Hiermee stuur je alle invulvelden met een waarde naar de server.
 const submitTransactionBtn = document.getElementById("submit-btn");
 ///Input values overview//////////////////////////////////////
@@ -31,6 +35,21 @@ let revenueCalculation = document.getElementById("revenue");
 let purchaseCalculation = document.getElementById("purchaseCalc");
 let profitLoss = document.getElementById("profitLoss");
 const profitLosStyle = document.querySelector(".profitLos");
+
+let insertTransactions = "";
+let insertName = "";
+let insertTransactionNum = "";
+let insertTransactionType = "";
+let insertTransactionAmount = "";
+let insertEditTrans = "";
+let deleteTransaction = "";
+let insertInput = "";
+
+let inputDate = document.getElementById("date");
+let inputCompanyName = document.getElementById("cpName");
+let inputTransNumber = document.getElementById("trans-numb");
+let inputAmount = document.getElementById("amount");
+let inputTranscationType = document.getElementById("transaction-type");
 
 // SET LIMIT SELECT BASED ON SEARCH QUERY VALUE
 const params = new URLSearchParams(window.location.search);
@@ -51,21 +70,14 @@ const getTransactions = () => {
   const response = JSON.parse(getReq.response);
   console.log(response);
 
-  let insertTransactions = "";
-  let insertName = "";
-  let insertTransactionNum = "";
-  let insertTransactionType = "";
-  let insertTransactionAmount = "";
-  let insertEditTrans = "";
-  let deleteTransaction = "";
   response.transactions.forEach((trans) => {
     insertTransactions += `<div class="transaction-data-js js-transaction-date">${trans.date} </div>`;
     insertName += `<div class="transaction-data-js js-transaction-description"> ${trans.description}</div>`;
     insertTransactionNum += `<div class="transaction-data-js js-transaction-number">${trans.transaction_number}</div>`;
     insertTransactionType += `<div class="transaction-data-js js-transaction-type">${trans.type}</div>`;
     insertTransactionAmount += `<div class="transaction-data-js js-transaction-amount"> € ${trans.amount},-</div>`;
-    insertEditTrans += `<div class="transaction-data-js js-transaction-edit">
-    <img src=${images[0]} alt="edit-trans" class="edit-trans" /></div>`;
+    insertEditTrans += `<div class="transaction-data-js js-transaction-edit" id="${trans._id}">
+    <img src=${images[0]} alt="edit-trans" class="edit-trans"  style="pointer-events:none" /></div>`;
     deleteTransaction += `<div class="transaction-data-js js-transaction-delete"  id="${trans._id}">
     <img src=${images[1]} alt="edit-trans" class="edit-trans" style="pointer-events:none"  /></div>`;
   });
@@ -162,18 +174,11 @@ getTransactions();
 
 //Deze functie haalt alle waardes op van de invulvelden
 const getInputValues = () => {
-  const inputDate = document.getElementById("date").value;
-  const inputCompanyName = document.getElementById("cpName").value;
-  const inputTransNumber = document.getElementById("trans-numb").value;
-  const inputAmount = document.getElementById("amount").value;
-  const inputTranscationType =
-    document.getElementById("transaction-type").value;
-
-  console.log(inputDate);
-  console.log(inputCompanyName);
-  console.log(inputTransNumber);
-  console.log(inputAmount);
-  console.log(inputTranscationType);
+  inputDate = document.getElementById("date").value;
+  inputCompanyName = document.getElementById("cpName").value;
+  inputTransNumber = document.getElementById("trans-numb").value;
+  inputAmount = document.getElementById("amount").value;
+  inputTranscationType = document.getElementById("transaction-type").value;
 
   return {
     inputDate,
@@ -217,6 +222,8 @@ const setTransaction = () => {
   );
 };
 
+const edit = () => {};
+
 countMoney();
 submitTransactionBtn.addEventListener("click", () => {
   addTransactionModal.classList.toggle("add-trans-visible");
@@ -250,4 +257,59 @@ deleteTrans.addEventListener("click", (e) => {
   );
   deleteTrans.send();
   getTransactions();
+});
+
+editTrans.addEventListener("click", (e) => {
+  console.log(e.target.id);
+  addTransactionModal.classList.toggle("add-trans-visible");
+  editTransactionBtn.style.display = "block";
+  submitTransactionBtn.style.display = "none";
+  headingTransModal.innerText = "Edit Transaction";
+
+  edit();
+  const editingTrans = new XMLHttpRequest();
+  editingTrans.open(
+    "get",
+    `http://localhost:8000/transactions/${e.target.id}`,
+    false
+  );
+  editingTrans.send();
+  const response = JSON.parse(editingTrans.response);
+  console.log(response);
+
+  inputDate.value = response.date;
+  inputCompanyName.value = response.description;
+  inputTransNumber.value = response.transaction_number;
+  inputAmount.value = response.amount;
+  inputTranscationType.value = response.type;
+
+  editTransactionBtn.setAttribute("rel", response._id);
+});
+
+editTransactionBtn.addEventListener("click", (e) => {
+  const dates = inputDate.value;
+  const compyNM = inputCompanyName.value;
+  const transNum = inputTransNumber.value;
+  const amount = inputAmount.value;
+  const type = inputTranscationType.value;
+
+  console.log(dates);
+  console.log("EDITING NOW.....................");
+  const sendChanges = new XMLHttpRequest();
+  sendChanges.open(
+    "PATCH",
+    `http://localhost:8000/transactions/${e.target.getAttribute("rel")}`,
+    false
+  );
+  sendChanges.setRequestHeader("Content-Type", "application/json");
+
+  sendChanges.send(
+    JSON.stringify({
+      dates: dates,
+      descriptions: compyNM,
+      transaction_numbers: transNum,
+      amounts: amount,
+      types: type,
+    })
+  );
 });

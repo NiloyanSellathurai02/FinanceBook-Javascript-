@@ -76,6 +76,31 @@ app.post("/transactions", async (req, res) => {
   }
 });
 
+app.patch("/transactions/:transactionId", async (req, res) => {
+  try {
+    const transactionId = req.params.transactionId;
+    console.log("Het werkt");
+    console.log(req.body);
+    console.log(req.body.dates);
+    console.log(req.body.descriptions);
+    console.log(req.body.transaction_numbers);
+    console.log(req.body.amounts);
+    console.log(req.body.types);
+
+    await Transaction.findByIdAndUpdate(transactionId, {
+      date: req.body.dates,
+      description: req.body.descriptions,
+      transaction_number: req.body.transaction_numbers,
+      amount: req.body.amounts,
+      type: req.body.types,
+    });
+
+    res.send();
+  } catch (error) {
+    res.status(400).send(error.message);
+  }
+});
+
 app.delete("/transactions/:transactionId", async (req, res) => {
   try {
     const transactiondId = req.params.transactionId;
