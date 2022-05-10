@@ -51,11 +51,11 @@ let inputTransNumber = document.getElementById("trans-numb");
 let inputAmount = document.getElementById("amount");
 let inputTranscationType = document.getElementById("transaction-type");
 
-inputDate = document.getElementById("date").value = "";
-inputCompanyName = document.getElementById("cpName").value = "";
-inputTransNumber = document.getElementById("trans-numb").value = "";
-inputAmount = document.getElementById("amount").value = "";
-inputTranscationType = document.getElementById("transaction-type").value = "";
+inputDate = document.getElementById("date").value = null;
+inputCompanyName = document.getElementById("cpName").value = null;
+inputTransNumber = document.getElementById("trans-numb").value = null;
+inputAmount = document.getElementById("amount").value = null;
+inputTranscationType = document.getElementById("transaction-type").value = null;
 
 // SET LIMIT SELECT BASED ON SEARCH QUERY VALUE
 const params = new URLSearchParams(window.location.search);
