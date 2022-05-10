@@ -51,12 +51,6 @@ let inputTransNumber = document.getElementById("trans-numb");
 let inputAmount = document.getElementById("amount");
 let inputTranscationType = document.getElementById("transaction-type");
 
-inputDate = document.getElementById("date").value;
-inputCompanyName = document.getElementById("cpName").value;
-inputTransNumber = document.getElementById("trans-numb").value;
-inputAmount = document.getElementById("amount").value;
-inputTranscationType = document.getElementById("transaction-type").value;
-
 // SET LIMIT SELECT BASED ON SEARCH QUERY VALUE
 const params = new URLSearchParams(window.location.search);
 params.forEach((value, key) => {
