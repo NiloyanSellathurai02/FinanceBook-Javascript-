@@ -250,6 +250,7 @@ addTransactionBtn.addEventListener("click", () => {
 
 addTransactionModalClose.addEventListener("click", () => {
   addTransactionModal.classList.toggle("add-trans-visible");
+  window.location.reload();
 });
 
 deleteTrans.addEventListener("click", (e) => {
