@@ -64,7 +64,11 @@ const getTransactions = () => {
   const query = location.search;
   console.log(query);
   const getReq = new XMLHttpRequest();
-  getReq.open("GET", `http://localhost:8000/transactions${query}`, false);
+  getReq.open(
+    "GET",
+    `https://npfinance-nl.onrender.com/transactions${query}`,
+    false
+  );
   getReq.setRequestHeader("Content-Type", "application/json");
   getReq.send();
   const response = JSON.parse(getReq.response);
@@ -95,7 +99,7 @@ const getTransactions = () => {
 };
 const countMoney = () => {
   const getMoney = new XMLHttpRequest();
-  getMoney.open("GET", "http://localhost:8000/money", false);
+  getMoney.open("GET", "https://npfinance-nl.onrender.com/money", false);
   getMoney.send();
   const getMoneyRes = JSON.parse(getMoney.response);
   console.log(getMoneyRes);
@@ -190,7 +194,11 @@ const getInputValues = () => {
 //Deze Functie neemt alle waardes en stuurt deze naar de server
 const setTransaction = () => {
   const xmhttpReq = new XMLHttpRequest();
-  xmhttpReq.open("POST", "http://localhost:8000/transactions", false);
+  xmhttpReq.open(
+    "POST",
+    "https://npfinance-nl.onrender.com/transactions",
+    false
+  );
   xmhttpReq.setRequestHeader("Content-Type", "application/json");
 
   const values = getInputValues();
@@ -249,7 +257,7 @@ deleteTrans.addEventListener("click", (e) => {
   const deleteTrans = new XMLHttpRequest();
   deleteTrans.open(
     "delete",
-    `http://localhost:8000/transactions/${e.target.id}`,
+    `https://npfinance-nl.onrender.com/transactions/${e.target.id}`,
     false
   );
   deleteTrans.send();
@@ -266,7 +274,7 @@ editTrans.addEventListener("click", (e) => {
   const editingTrans = new XMLHttpRequest();
   editingTrans.open(
     "get",
-    `http://localhost:8000/transactions/${e.target.id}`,
+    `https://npfinance-nl.onrender.com/transactions/${e.target.id}`,
     false
   );
   editingTrans.send();
@@ -296,7 +304,9 @@ editTransactionBtn.addEventListener("click", (e) => {
   const sendChanges = new XMLHttpRequest();
   sendChanges.open(
     "PATCH",
-    `http://localhost:8000/transactions/${e.target.getAttribute("rel")}`,
+    `https://npfinance-nl.onrender.com/transactions/${e.target.getAttribute(
+      "rel"
+    )}`,
     false
   );
   sendChanges.setRequestHeader("Content-Type", "application/json");
