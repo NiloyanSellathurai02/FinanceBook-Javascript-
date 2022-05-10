@@ -170,8 +170,6 @@ const toggleMenuList = () => {
   hbModalMenuList.classList.toggle("menu-toggle");
 };
 
-getTransactions();
-
 //Deze functie haalt alle waardes op van de invulvelden
 const getInputValues = () => {
   inputDate = document.getElementById("date").value;
@@ -220,15 +218,14 @@ const setTransaction = () => {
       deleteImage: images[1],
     })
   );
+  window.location.reload();
 };
-
-const edit = () => {};
-
+getTransactions();
 countMoney();
 submitTransactionBtn.addEventListener("click", () => {
   addTransactionModal.classList.toggle("add-trans-visible");
   setTransaction();
-  getTransactions();
+  window.location.reload();
 });
 
 hbMenu.addEventListener("click", () => {
@@ -256,7 +253,7 @@ deleteTrans.addEventListener("click", (e) => {
     false
   );
   deleteTrans.send();
-  getTransactions();
+  window.location.reload();
 });
 
 editTrans.addEventListener("click", (e) => {
@@ -266,7 +263,6 @@ editTrans.addEventListener("click", (e) => {
   submitTransactionBtn.style.display = "none";
   headingTransModal.innerText = "Edit Transaction";
 
-  edit();
   const editingTrans = new XMLHttpRequest();
   editingTrans.open(
     "get",
@@ -294,6 +290,8 @@ editTransactionBtn.addEventListener("click", (e) => {
   const type = inputTranscationType.value;
 
   console.log(dates);
+
+  console.log(dates);
   console.log("EDITING NOW.....................");
   const sendChanges = new XMLHttpRequest();
   sendChanges.open(
@@ -312,4 +310,6 @@ editTransactionBtn.addEventListener("click", (e) => {
       types: type,
     })
   );
+  addTransactionModal.classList.remove("add-trans-visible");
+  window.location.reload();
 });
